@@ -4,6 +4,6 @@ import com.dthompson.api.di.RestaurantResultResponseBody
 import com.google.gson.annotations.SerializedName
 
 class RestaurantListResponseBody {
-    @SerializedName("result")
+    @SerializedName("results")
     var restaurantResultResponseBody: List<RestaurantResultResponseBody> = ArrayList()
 }

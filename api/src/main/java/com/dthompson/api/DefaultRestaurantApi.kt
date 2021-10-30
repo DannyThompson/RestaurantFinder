@@ -1,19 +1,23 @@
-package com.dthompson.api.di
+package com.dthompson.api
 
-import com.dthompson.api.RestaurantApiService
-import com.dthompson.api.com.dthompson.api.RestaurantApi
+import android.util.Log
+import com.dthompson.core.GOOGLE_PLACES_API_KEY
+import com.dthompson.core.REQUESTED_TYPE
 import com.dthompson.core.Restaurant
 import io.reactivex.Single
 import java.lang.RuntimeException
 
-private const val GOOGLE_PLACES_API_KEY = "AIzaSyDQSd210wKX_7cz9MELkxhaEOUhFP0AkSk"
-private const val REQUESTED_TYPE = "restaurant" // For now, all we care about is restaurants, so just hard code the type.
 class DefaultRestaurantApi(private val apiService: RestaurantApiService): RestaurantApi {
-
-    override fun getRestaurantsForQuery(queryParam: String): Single<List<Restaurant>> {
-        return apiService.getRestaurantDetails(queryParam, REQUESTED_TYPE, GOOGLE_PLACES_API_KEY)
+    override fun getRestaurantsForQuery(queryParam: String, locationString: String): Single<List<Restaurant>> {
+        return apiService.getRestaurantDetails(
+                queryParam,
+                locationString,
+                REQUESTED_TYPE,
+                GOOGLE_PLACES_API_KEY
+        )
             .map {
                 if (it.isSuccessful) {
+                    Log.d("DMT results ", it.body()!!.restaurantResultResponseBody.toString())
                     val list = mutableListOf<Restaurant>()
                     for (restaurantResponse in it.body()!!.restaurantResultResponseBody) {
                         list.add(restaurantResponse.toRestaurant())
