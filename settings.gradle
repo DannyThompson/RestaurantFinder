@@ -2,3 +2,4 @@ rootProject.name = "RestaurantFinder"
 include ':api',
         ':app',
         ':services'
+include ':core'
