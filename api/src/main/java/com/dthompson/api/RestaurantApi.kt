@@ -1,8 +1,8 @@
-package com.dthompson.api.di
+package com.dthompson.api
 
 import com.dthompson.core.Restaurant
 import io.reactivex.Single
 
 interface RestaurantApi {
-    fun getRestaurantsForQuery(queryParam: String): Single<List<Restaurant>>
+    fun getRestaurantsForQuery(queryParam: String, locationString: String): Single<List<Restaurant>>
 }
