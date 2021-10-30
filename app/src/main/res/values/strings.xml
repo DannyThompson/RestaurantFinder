@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">RestaurantFinder</string>
+
+    <string name="search">Search for a restaurant</string>
+    <string name="location_permission_title">Location permission required</string>
+    <string name="location_permission_message">Location permission is required to find restaurants near you.</string>
+    <string name="allow">Allow</string>
+    <string name="cancel">Cancel</string>
+    <string name="not_now">Not now</string>
+    <string name="settings">Settings</string>
 </resources>
