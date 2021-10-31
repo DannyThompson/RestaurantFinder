@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 class RestaurantResultResponseBody {
 
+    @SerializedName("name")
+    var name: String = ""
+
     @SerializedName("business_status")
     var status: String = ""
 
@@ -28,6 +31,6 @@ class RestaurantResultResponseBody {
     var ratingCount: Int = 0
 
     fun toRestaurant(): Restaurant {
-        return Restaurant(status, id, address, iconUrl, priceLevel, rating, ratingCount)
+        return Restaurant(name, status, id, address, iconUrl, priceLevel, rating, ratingCount)
     }
 }
