@@ -7,6 +7,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dthompson.core.Location
+import com.dthompson.core.QUERY_TYPE_ALL
+import com.dthompson.core.QUERY_TYPE_SEARCH
 import com.dthompson.core.Restaurant
 import com.dthompson.services.RestaurantRepo
 import com.google.android.gms.location.LocationCallback
@@ -27,7 +29,9 @@ class MainActivityViewModel: ViewModel() {
 
     private var disposable = Disposables.empty()
 
-    val restaurants = MutableLiveData<List<Restaurant>>()
+    val restaurants = MutableLiveData<RestaurantsState>()
+    val loading = MutableLiveData<Boolean>()
+    var restaurantsState = RestaurantsState()
     var currentLocation: Location? = null
 
     override fun onCleared() {
@@ -35,14 +39,21 @@ class MainActivityViewModel: ViewModel() {
         disposable.dispose()
     }
 
-    fun getRestaurants(query: String, locationString: String) {
+    fun getRestaurants(query: String?, locationString: String) {
         disposable.dispose()
         disposable = restaurantRepo.getRestaurants(query, locationString)
+            .doOnSubscribe { loading.postValue(true) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    restaurants.postValue(it)
+                    restaurantsState = if (query != null) {
+                        restaurantsState.copy(restaurantsByName = it, queryType = QUERY_TYPE_SEARCH)
+                    } else {
+                        restaurantsState.copy(allLocalRestaurants = it, queryType = QUERY_TYPE_ALL)
+                    }
+                    restaurants.postValue(restaurantsState)
+                    loading.postValue(false)
                 },
                 { Exceptions.propagate(it) }
             )
@@ -65,7 +76,8 @@ class MainActivityViewModel: ViewModel() {
                         val lat = newestLocation.latitude
                         val long = newestLocation.longitude
                         currentLocation = Location(lat, long)
-                        Log.d("DMT location is ", currentLocation!!.toFormattedString())
+                        // Once current location is retrieved, we want to get a list of ALL local restaurants, so pass null as the query param.
+                        getRestaurants(null, currentLocation!!.toFormattedString())
                     }
                 }
             }, Looper.getMainLooper())
