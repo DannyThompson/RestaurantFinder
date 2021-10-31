@@ -6,9 +6,9 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class DefaultRestaurantRepo(val restaurantApi: RestaurantApi): RestaurantRepo {
+class DefaultRestaurantRepo(private val restaurantApi: RestaurantApi): RestaurantRepo {
 
-    override fun getRestaurants(query: String, locationString: String): Single<List<Restaurant>> {
+    override fun getRestaurants(query: String?, locationString: String): Single<List<Restaurant>> {
         return restaurantApi.getRestaurantsForQuery(query, locationString)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
