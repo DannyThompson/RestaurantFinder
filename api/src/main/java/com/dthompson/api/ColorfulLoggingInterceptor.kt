@@ -114,11 +114,11 @@ class ColorfulHttpLoggingInterceptor @JvmOverloads constructor(private val logge
                 }
 
                 private fun censorPassword(input: String): String {
-                    var input = input
-                    if (input.toLowerCase(Locale.US).contains("password")) {
-                        input = "LOG CONTAINS PASSWORD; CENSORED"
+                    var input1 = input
+                    if (input1.toLowerCase(Locale.US).contains("password")) {
+                        input1 = "LOG CONTAINS PASSWORD; CENSORED"
                     }
-                    return input
+                    return input1
                 }
             }
         }

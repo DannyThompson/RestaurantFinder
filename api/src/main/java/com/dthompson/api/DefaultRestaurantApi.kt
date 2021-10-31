@@ -8,7 +8,7 @@ import io.reactivex.Single
 import java.lang.RuntimeException
 
 class DefaultRestaurantApi(private val apiService: RestaurantApiService): RestaurantApi {
-    override fun getRestaurantsForQuery(queryParam: String, locationString: String): Single<List<Restaurant>> {
+    override fun getRestaurantsForQuery(queryParam: String?, locationString: String): Single<List<Restaurant>> {
         return apiService.getRestaurantDetails(
                 queryParam,
                 locationString,
