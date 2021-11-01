@@ -43,7 +43,6 @@ class RestaurantListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun setItem(restaurant: Restaurant) {
             restaurantName.text = restaurant.name
             val price = restaurant.priceLevel
-            Log.d("DMT price", price.toString())
             if (price > 0) restaurantPrice.text = getPriceString(price)
             else restaurantPrice.visibility = View.GONE
 

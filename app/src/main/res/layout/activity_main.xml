@@ -37,6 +37,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="24dp"/>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="32dp"/>
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="0dp"
@@ -44,51 +51,47 @@
         android:layout_marginTop="24dp"
         android:iconifiedByDefault="false"
         android:focusableInTouchMode="true"
+        app:iconifiedByDefault="false"
         android:elevation="2dp"
         android:outlineProvider="bounds"
-        app:iconifiedByDefault="false"
         app:queryHint="@string/search"
         app:layout_constraintStart_toStartOf="@id/guideline_vertical_begin"
         app:layout_constraintEnd_toEndOf="@id/guideline_vertical_end"
         app:layout_constraintTop_toBottomOf="@id/app_bar" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container_recycler_view"
+    <ViewFlipper
+        android:id="@+id/view_flipper"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/light_grey"
-        android:elevation="1dp"
-        android:outlineProvider="bounds"
         android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_view">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_restaurants_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
-            android:clipToPadding="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/container_list_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.dthompson.restaurantfinder.main.RestaurantListFragment"/>
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progress_bar"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            style="?android:attr/progressBarStyle" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/container_map_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.dthompson.restaurantfinder.main.RestaurantMapFragment"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ViewFlipper>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_list_map_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/map"
+        app:cornerRadius="6dp"
+        app:icon="@drawable/ic_location_marker"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

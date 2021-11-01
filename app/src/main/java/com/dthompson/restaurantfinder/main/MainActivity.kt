@@ -1,53 +1,68 @@
 package com.dthompson.restaurantfinder.main
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.ViewFlipper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.dthompson.core.QUERY_TYPE_ALL
+import androidx.core.content.res.ResourcesCompat
 import com.dthompson.restaurantfinder.R
 import com.dthompson.restaurantfinder.RestaurantFinderApplication
+import com.google.android.material.button.MaterialButton
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.disposables.Disposables
 import io.reactivex.exceptions.Exceptions
 
+private const val FRAGMENT_INDEX_LIST = 0
+private const val FRAGMENT_INDEX_MAP = 1
 class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
     private val viewModel: MainActivityViewModel by viewModels()
     private var permissionDisposable = Disposables.empty()
     private lateinit var searchView: SearchView
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: RestaurantListAdapter
+    private lateinit var viewFlipper: ViewFlipper
     private lateinit var toolbar: Toolbar
-    private lateinit var progressBar: ProgressBar
+    private lateinit var toggleButton: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (applicationContext as RestaurantFinderApplication).appComponent!!.inject(viewModel)
         setContentView(R.layout.activity_main)
 
-        adapter = RestaurantListAdapter()
-        recyclerView = findViewById(R.id.recycler_view_restaurants_list)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+        viewFlipper = findViewById(R.id.view_flipper)
+        viewFlipper.displayedChild = FRAGMENT_INDEX_LIST // Always show list first on startup.
+
+        toggleButton = findViewById(R.id.button_list_map_toggle)
+        toggleButton.setOnClickListener {
+            if (viewFlipper.displayedChild == FRAGMENT_INDEX_LIST) {
+                toggleButton.icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_location_marker, null)
+                toggleButton.text = resources.getText(R.string.map)
+                viewFlipper.displayedChild = FRAGMENT_INDEX_MAP
+            } else {
+                toggleButton.icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_list, null)
+                toggleButton.text = resources.getText(R.string.list)
+                viewFlipper.displayedChild = FRAGMENT_INDEX_LIST
+            }
+        }
+
         toolbar = findViewById(R.id.toolbar)
         toolbar.inflateMenu(R.menu.menu)
         toolbar.setOnMenuItemClickListener(this)
-        progressBar = findViewById(R.id.progress_bar)
         searchView = findViewById(R.id.search_view)
         searchView.isSubmitButtonEnabled = true
+
         // Set mag icon color.
         val icon: ImageView = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon)
         icon.setColorFilter(resources.getColor(R.color.dark_green, null))
@@ -56,6 +71,11 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query ?: return false
                 viewModel.getRestaurants(query, viewModel.currentLocation!!.toFormattedString())
+                // Hide keyboard if shown.
+                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+                if (inputMethodManager != null && inputMethodManager.isActive) {
+                    inputMethodManager.hideSoftInputFromWindow(searchView.windowToken, 0)
+                }
                 return true
             }
 
@@ -66,13 +86,12 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         })
 
         checkLocationPermission()
-        observeRestaurants()
-        observeLoadingState()
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_item_refresh) {
-            adapter.setRestaurantList(emptyList())
+            // Clear the current query and re-get location.
+            searchView.setQuery("", false)
             viewModel.getLocation()
             return true
         }
@@ -124,22 +143,5 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
                     },
                     { Exceptions.propagate(it) }
             )
-    }
-
-    private fun observeRestaurants() {
-        viewModel.restaurants.observe(this, {
-            if (it.queryType == QUERY_TYPE_ALL) {
-                adapter.setRestaurantList(it.allLocalRestaurants)
-            } else {
-                adapter.setRestaurantList(it.restaurantsByName)
-            }
-
-        })
-    }
-
-    private fun observeLoadingState() {
-        viewModel.loading.observe(this, {
-            if (it) progressBar.visibility = View.VISIBLE else progressBar.visibility = View.GONE
-        })
     }
 }
