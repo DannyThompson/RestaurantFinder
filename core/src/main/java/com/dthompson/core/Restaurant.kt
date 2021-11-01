@@ -9,4 +9,5 @@ class Restaurant(
         var priceLevel: Int,
         var rating: Float,
         var ratingCount: Int,
-        var isOpen: Boolean)
+        var isOpen: Boolean,
+        var location: Location)
