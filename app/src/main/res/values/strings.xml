@@ -10,12 +10,15 @@
     <string name="settings">Settings</string>
     <string name="restaurant_total_ratings">(%d)</string>
     <string name="restaurant_name_placeholder">Restaurant Name</string>
+    <string name="phone_place_holder">(555) 555–5555</string>
     <string name="open">Open</string>
     <string name="closed">Closed</string>
     <string name="price_default">$</string>
     <string name="refresh"/>
     <string name="map">Map</string>
     <string name="list">List</string>
+    <string name="photos">Photos</string>
+    <string name="separator">\u2022\</string>
 
     <plurals name="price_cheap">
         <item quantity="one">$\u0020\u2022\u0020</item>

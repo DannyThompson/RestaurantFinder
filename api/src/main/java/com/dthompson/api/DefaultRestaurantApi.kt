@@ -1,9 +1,6 @@
 package com.dthompson.api
 
-import android.util.Log
-import com.dthompson.core.GOOGLE_PLACES_API_KEY
-import com.dthompson.core.REQUESTED_TYPE
-import com.dthompson.core.Restaurant
+import com.dthompson.core.*
 import io.reactivex.Single
 import java.lang.RuntimeException
 
@@ -17,14 +14,31 @@ class DefaultRestaurantApi(private val apiService: RestaurantApiService): Restau
         )
             .map {
                 if (it.isSuccessful) {
-                    Log.d("DMT results ", it.body()!!.restaurantResultResponseBody.toString())
                     val list = mutableListOf<Restaurant>()
                     for (restaurantResponse in it.body()!!.restaurantResultResponseBody) {
                         list.add(restaurantResponse.toRestaurant())
                     }
+
                     list
                 } else {
-                    throw RuntimeException()
+                    throw RuntimeException("Error 2")
+                }
+            }
+    }
+
+    override fun getPhoneAndPhotos(placeId: String): Single<PhoneAndPhotosDto> {
+        return apiService.getRestaurantSpecialDetails(placeId, DETAILS_PHONE_AND_PHOTOS, GOOGLE_PLACES_API_KEY)
+            .map {
+                if (it.isSuccessful) {
+                    val details = it.body()!!.details
+                    val photoList = ArrayList<String>()
+                    for (photo in details.photos) {
+                        photoList.add(photo.photoReference)
+                    }
+
+                    PhoneAndPhotosDto(photoList, details.phone)
+                } else {
+                    throw RuntimeException("Error getting phone and photos")
                 }
             }
     }

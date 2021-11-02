@@ -17,9 +17,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 
-
-
-
 class RestaurantMapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMapLoadedCallback {
 
     private val viewModel: MainActivityViewModel by activityViewModels()
