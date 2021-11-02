@@ -10,9 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dthompson.core.QUERY_TYPE_ALL
+import com.dthompson.core.Restaurant
 import com.dthompson.restaurantfinder.R
 
-class RestaurantListFragment: Fragment() {
+class RestaurantListFragment: Fragment(), RestaurantListAdapter.OnItemClickListener {
 
     private val viewModel: MainActivityViewModel by activityViewModels()
     private lateinit var recyclerView: RecyclerView
@@ -31,8 +32,13 @@ class RestaurantListFragment: Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+        adapter.setClickListener(this)
         observeRestaurants()
         observeLoadingState()
+    }
+
+    override fun onItemClicked(restaurant: Restaurant) {
+        viewModel.getDetailsForRestaurant(restaurant.id)
     }
 
     private fun observeRestaurants() {
