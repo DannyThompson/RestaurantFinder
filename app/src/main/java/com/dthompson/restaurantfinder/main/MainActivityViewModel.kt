@@ -3,13 +3,12 @@ package com.dthompson.restaurantfinder.main
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Looper
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dthompson.core.Location
 import com.dthompson.core.QUERY_TYPE_ALL
 import com.dthompson.core.QUERY_TYPE_SEARCH
-import com.dthompson.core.Restaurant
+import com.dthompson.restaurantfinder.BuildConfig
 import com.dthompson.services.RestaurantRepo
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -41,7 +40,7 @@ class MainActivityViewModel: ViewModel() {
 
     fun getRestaurants(query: String?, locationString: String) {
         disposable.dispose()
-        disposable = restaurantRepo.getRestaurants(query, locationString)
+        disposable = restaurantRepo.getRestaurants(query, locationString, BuildConfig.GOOGLE_API_KEY)
             .doOnSubscribe { loading.postValue(true) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())

@@ -14,6 +14,8 @@
     <string name="closed">Closed</string>
     <string name="price_default">$</string>
     <string name="refresh"/>
+    <string name="map">Map</string>
+    <string name="list">List</string>
 
     <plurals name="price_cheap">
         <item quantity="one">$\u0020\u2022\u0020</item>
