@@ -1,6 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/text_view_name"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/restaurant_name_placeholder"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_view_rating_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintStart_toStartOf="@id/text_view_name"
+        app:layout_constraintTop_toBottomOf="@id/text_view_name"
+        app:layout_constraintBottom_toBottomOf="@id/rating_bar"/>
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        android:rating="0"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="4dp"
+        android:progressTint="@color/yellow"
+        android:colorControlActivated="@color/quantum_yellow"
+        app:layout_constraintTop_toBottomOf="@id/text_view_name"
+        app:layout_constraintStart_toEndOf="@id/text_view_rating_value"
+        style="?android:attr/ratingBarStyleSmall" />
+
+    <TextView
+        android:id="@+id/text_view_ratings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textSize="12sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintStart_toEndOf="@id/rating_bar"
+        app:layout_constraintTop_toBottomOf="@id/text_view_name"
+        app:layout_constraintBottom_toBottomOf="@id/rating_bar"/>
+
+    <TextView
+        android:id="@+id/text_view_price"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:textSize="12sp"
+        android:text="@string/price_default"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintEnd_toStartOf="@id/text_view_hours"
+        app:layout_constraintTop_toBottomOf="@id/rating_bar"
+        app:layout_constraintStart_toStartOf="@id/text_view_name" />
+
+    <TextView
+        android:id="@+id/text_view_hours"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:textSize="12sp"
+        android:text="@string/closed"
+        app:layout_constraintTop_toBottomOf="@id/rating_bar"
+        app:layout_constraintStart_toEndOf="@id/text_view_price"/>
+
+    <TextView
+        android:id="@+id/text_view_address"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:textSize="12sp"
+        android:text="@string/restaurant_name_placeholder"
+        android:textColor="@color/light_grey"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/text_view_price"
+        app:layout_constraintStart_toStartOf="@id/text_view_name"/>
+
+    <TextView
+        android:id="@+id/text_view_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:textSize="12sp"
+        android:text="@string/phone_place_holder"
+        android:textColor="@color/light_grey"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/text_view_address"
+        app:layout_constraintStart_toStartOf="@id/text_view_name"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_phone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
