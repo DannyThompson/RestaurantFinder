@@ -9,17 +9,11 @@ class RestaurantResultResponseBody {
     @SerializedName("name")
     var name: String = ""
 
-    @SerializedName("business_status")
-    var status: String = ""
-
     @SerializedName("place_id")
     var id: String = ""
 
     @SerializedName("formatted_address")
     var address: String = ""
-
-    @SerializedName("icon")
-    var iconUrl: String = ""
 
     @SerializedName("price_level")
     var priceLevel: Int = 0
@@ -39,7 +33,7 @@ class RestaurantResultResponseBody {
     fun toRestaurant(): Restaurant {
         val lat = geometryResponseBody.locationResponseBody.lat
         val lng = geometryResponseBody.locationResponseBody.lng
-        return Restaurant(name, status, id, address, iconUrl, priceLevel, rating, ratingCount, openHoursResponseBody.isOpen, Location(lat, lng))
+        return Restaurant(name, id, address, priceLevel, rating, ratingCount, openHoursResponseBody.isOpen, Location(lat, lng))
     }
 
     class OpenHoursResponseBody {

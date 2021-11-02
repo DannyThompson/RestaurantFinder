@@ -11,4 +11,10 @@ interface RestaurantApiService {
                              @Query("location") location: String,
                              @Query("type") type: String,
                              @Query("key") key: String): Single<Response<RestaurantListResponseBody>>
+
+    @GET("api/place/details/json")
+    fun getRestaurantSpecialDetails(@Query("place_id") placeId: String,
+                                    @Query("fields") fields: String,
+                                    @Query("key") key: String): Single<Response<DetailsResultResponseBody>>
+
 }
