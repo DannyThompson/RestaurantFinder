@@ -8,6 +8,9 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
     defaultConfig {
         applicationId "com.dthompson.restaurantfinder"
         minSdkVersion 25
@@ -19,6 +22,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            resValue "string", "GOOGLE_API_KEY", GOOGLE_API_KEY
+            buildConfigField "String", "GOOGLE_API_KEY", GOOGLE_API_KEY
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
