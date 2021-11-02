@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dthompson.core.QUERY_TYPE_ALL
 import com.dthompson.core.Restaurant
 import com.dthompson.restaurantfinder.R
+import com.dthompson.restaurantfinder.main.details.RestaurantDetailDialogFragment
 
+const val TAG_DETAIL_DIALOG_FRAGMENT = "TAG_DETAIL_DIALOG_FRAGMENT"
 class RestaurantListFragment: Fragment(), RestaurantListAdapter.OnItemClickListener {
 
     private val viewModel: MainActivityViewModel by activityViewModels()
@@ -35,6 +37,7 @@ class RestaurantListFragment: Fragment(), RestaurantListAdapter.OnItemClickListe
         adapter.setClickListener(this)
         observeRestaurants()
         observeLoadingState()
+        observeRestaurantDetails()
     }
 
     override fun onItemClicked(restaurant: Restaurant) {
@@ -59,6 +62,21 @@ class RestaurantListFragment: Fragment(), RestaurantListAdapter.OnItemClickListe
                 adapter.setRestaurantList(emptyList())
             } else {
                 progressBar.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun observeRestaurantDetails() {
+        viewModel.detailedRestaurant.observe(viewLifecycleOwner, { restaurant ->
+            var detailFragment = requireActivity().supportFragmentManager.findFragmentByTag(
+                TAG_DETAIL_DIALOG_FRAGMENT) as RestaurantDetailDialogFragment?
+
+            if (detailFragment == null) {
+                detailFragment = RestaurantDetailDialogFragment(restaurant)
+            }
+
+            if (!detailFragment.isAdded) {
+                detailFragment.show(requireActivity().supportFragmentManager, TAG_DETAIL_DIALOG_FRAGMENT)
             }
         })
     }

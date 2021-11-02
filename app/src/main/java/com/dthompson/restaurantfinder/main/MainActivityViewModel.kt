@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.dthompson.core.Location
 import com.dthompson.core.QUERY_TYPE_ALL
 import com.dthompson.core.QUERY_TYPE_SEARCH
+import com.dthompson.core.Restaurant
 import com.dthompson.services.RestaurantRepo
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -30,6 +31,7 @@ class MainActivityViewModel: ViewModel() {
     private var detailDisposable = Disposables.empty()
 
     val restaurants = MutableLiveData<RestaurantsState>()
+    val detailedRestaurant = MutableLiveData<Restaurant>()
     val loading = MutableLiveData<Boolean>()
     var restaurantsState = RestaurantsState()
     var currentLocation: Location? = null
@@ -67,7 +69,7 @@ class MainActivityViewModel: ViewModel() {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    // TODO: handle showing the restaurant details.
+                    detailedRestaurant.postValue(it)
                 },
                 { Exceptions.propagate(it) }
             )
