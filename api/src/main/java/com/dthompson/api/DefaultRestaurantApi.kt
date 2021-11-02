@@ -21,12 +21,12 @@ class DefaultRestaurantApi(private val apiService: RestaurantApiService): Restau
 
                     list
                 } else {
-                    throw RuntimeException()
+                    throw RuntimeException("Error 2")
                 }
             }
     }
 
-    override fun getPhoneAndPhotos(placeId: String): Single<PhoneAndPhotos> {
+    override fun getPhoneAndPhotos(placeId: String): Single<PhoneAndPhotosDto> {
         return apiService.getRestaurantSpecialDetails(placeId, DETAILS_PHONE_AND_PHOTOS, GOOGLE_PLACES_API_KEY)
             .map {
                 if (it.isSuccessful) {
@@ -36,9 +36,9 @@ class DefaultRestaurantApi(private val apiService: RestaurantApiService): Restau
                         photoList.add(photo.photoReference)
                     }
 
-                    PhoneAndPhotos(photoList, details.phone)
+                    PhoneAndPhotosDto(photoList, details.phone)
                 } else {
-                    throw RuntimeException()
+                    throw RuntimeException("Error getting phone and photos")
                 }
             }
     }

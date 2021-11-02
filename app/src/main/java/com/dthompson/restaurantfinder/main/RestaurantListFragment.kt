@@ -37,11 +37,19 @@ class RestaurantListFragment: Fragment(), RestaurantListAdapter.OnItemClickListe
         adapter.setClickListener(this)
         observeRestaurants()
         observeLoadingState()
-        observeRestaurantDetails()
     }
 
     override fun onItemClicked(restaurant: Restaurant) {
-        viewModel.getDetailsForRestaurant(restaurant.id)
+        var detailFragment = requireActivity().supportFragmentManager.findFragmentByTag(
+            TAG_DETAIL_DIALOG_FRAGMENT) as RestaurantDetailDialogFragment?
+
+        if (detailFragment == null) {
+            detailFragment = RestaurantDetailDialogFragment(restaurant)
+        }
+
+        if (!detailFragment.isAdded) {
+            detailFragment.show(requireActivity().supportFragmentManager, TAG_DETAIL_DIALOG_FRAGMENT)
+        }
     }
 
     private fun observeRestaurants() {
@@ -62,21 +70,6 @@ class RestaurantListFragment: Fragment(), RestaurantListAdapter.OnItemClickListe
                 adapter.setRestaurantList(emptyList())
             } else {
                 progressBar.visibility = View.GONE
-            }
-        })
-    }
-
-    private fun observeRestaurantDetails() {
-        viewModel.detailedRestaurant.observe(viewLifecycleOwner, { restaurant ->
-            var detailFragment = requireActivity().supportFragmentManager.findFragmentByTag(
-                TAG_DETAIL_DIALOG_FRAGMENT) as RestaurantDetailDialogFragment?
-
-            if (detailFragment == null) {
-                detailFragment = RestaurantDetailDialogFragment(restaurant)
-            }
-
-            if (!detailFragment.isAdded) {
-                detailFragment.show(requireActivity().supportFragmentManager, TAG_DETAIL_DIALOG_FRAGMENT)
             }
         })
     }

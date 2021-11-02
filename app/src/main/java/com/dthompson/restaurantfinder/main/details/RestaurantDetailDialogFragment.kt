@@ -35,8 +35,8 @@ class RestaurantDetailDialogFragment(private val restaurant: Restaurant): AppCom
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!restaurant.phoneAndPhotos?.photos.isNullOrEmpty()) {
-            adapter = RestaurantDetailAdapter(restaurant.phoneAndPhotos!!.photos)
+        if (!restaurant.photoReferences.isNullOrEmpty()) {
+            adapter = RestaurantDetailAdapter(restaurant.photoReferences!!)
             viewPager = view.findViewById(R.id.view_pager)
             viewPager.adapter = adapter
 
@@ -71,8 +71,10 @@ class RestaurantDetailDialogFragment(private val restaurant: Restaurant): AppCom
             textViewAddress.text = restaurant.address
 
             textViewPhone = view.findViewById(R.id.text_view_phone)
-            if (restaurant.phoneAndPhotos?.phone != null) {
-                textViewPhone.text = restaurant.phoneAndPhotos!!.phone
+            if (restaurant.phone != null) {
+                textViewPhone.text = restaurant.phone
+            } else {
+                textViewPhone.visibility = View.GONE
             }
         }
     }

@@ -10,5 +10,6 @@ class Restaurant(
         var isOpen: Boolean,
         var location: Location) {
 
-        var phoneAndPhotos: PhoneAndPhotos? = null
+        var phone: String? = null
+        var photoReferences: List<String>? = null
 }

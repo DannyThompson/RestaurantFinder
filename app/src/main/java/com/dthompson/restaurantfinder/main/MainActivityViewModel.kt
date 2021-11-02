@@ -3,13 +3,11 @@ package com.dthompson.restaurantfinder.main
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Looper
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dthompson.core.Location
 import com.dthompson.core.QUERY_TYPE_ALL
 import com.dthompson.core.QUERY_TYPE_SEARCH
-import com.dthompson.core.Restaurant
 import com.dthompson.services.RestaurantRepo
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -31,7 +29,6 @@ class MainActivityViewModel: ViewModel() {
     private var detailDisposable = Disposables.empty()
 
     val restaurants = MutableLiveData<RestaurantsState>()
-    val detailedRestaurant = MutableLiveData<Restaurant>()
     val loading = MutableLiveData<Boolean>()
     var restaurantsState = RestaurantsState()
     var currentLocation: Location? = null
@@ -57,19 +54,6 @@ class MainActivityViewModel: ViewModel() {
                     }
                     restaurants.postValue(restaurantsState)
                     loading.postValue(false)
-                },
-                { Exceptions.propagate(it) }
-            )
-    }
-
-    fun getDetailsForRestaurant(placeId: String) {
-        detailDisposable.dispose()
-        detailDisposable = restaurantRepo.getPhoneAndPhotos(placeId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe(
-                {
-                    detailedRestaurant.postValue(it)
                 },
                 { Exceptions.propagate(it) }
             )

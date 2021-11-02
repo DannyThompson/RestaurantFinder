@@ -1,13 +1,15 @@
 package com.dthompson.restaurantfinder.main
 
 import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.dthompson.core.GOOGLE_PLACES_API_KEY
+import com.dthompson.core.PHOTOS_URL
 import com.dthompson.core.Restaurant
 import com.dthompson.core.StringUtils
 import com.dthompson.restaurantfinder.R
@@ -54,6 +56,7 @@ class RestaurantListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val ratingBar: RatingBar = view.findViewById(R.id.rating_bar)
         private val ratingCount: TextView = view.findViewById(R.id.text_view_ratings)
         private val hours: TextView = view.findViewById(R.id.text_view_hours)
+        private val imageViewThumbnail: ImageView = view.findViewById(R.id.image_view_thumbnail)
 
         init {
             view.setOnClickListener { onRowClickListener.onRowClicked(adapterPosition) }
@@ -79,6 +82,15 @@ class RestaurantListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             } else {
                 hours.text = this.itemView.context.getString(R.string.closed)
                 hours.setTextColor(this.itemView.context.getColor(R.color.quantum_googred))
+            }
+
+            val firstPhotoReference: String? = restaurant.photoReferences?.firstOrNull()
+            firstPhotoReference ?: return
+            val photoUrl = PHOTOS_URL.replace("{reference}", firstPhotoReference)
+                .replace("{key}", GOOGLE_PLACES_API_KEY)
+            imageViewThumbnail.load(photoUrl) {
+                error(R.drawable.thumbnail_placeholder)
+                placeholder(R.drawable.thumbnail_placeholder)
             }
         }
     }
