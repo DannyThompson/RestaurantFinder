@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface RestaurantApiService {
     @GET("api/place/textsearch/json")
-    fun getRestaurantDetails(@Query("query") queryParam: String,
+    fun getRestaurantDetails(@Query("query") queryParam: String?,
                              @Query("location") location: String,
                              @Query("type") type: String,
                              @Query("key") key: String): Single<Response<RestaurantListResponseBody>>

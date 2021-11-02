@@ -6,7 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
 
-    <!--  TODO: Add toolbar   -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:title="@string/app_name" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_vertical_begin"
@@ -22,6 +37,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="24dp"/>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="32dp"/>
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="0dp"
@@ -29,11 +51,47 @@
         android:layout_marginTop="24dp"
         android:iconifiedByDefault="false"
         android:focusableInTouchMode="true"
+        app:iconifiedByDefault="false"
         android:elevation="2dp"
         android:outlineProvider="bounds"
         app:queryHint="@string/search"
         app:layout_constraintStart_toStartOf="@id/guideline_vertical_begin"
         app:layout_constraintEnd_toEndOf="@id/guideline_vertical_end"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/app_bar" />
+
+    <ViewFlipper
+        android:id="@+id/view_flipper"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_view">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/container_list_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.dthompson.restaurantfinder.main.RestaurantListFragment"/>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/container_map_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.dthompson.restaurantfinder.main.RestaurantMapFragment"/>
+
+    </ViewFlipper>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_list_map_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/map"
+        app:cornerRadius="6dp"
+        app:icon="@drawable/ic_location_marker"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
