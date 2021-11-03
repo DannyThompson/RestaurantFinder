@@ -18,7 +18,7 @@
     <string name="map">Map</string>
     <string name="list">List</string>
     <string name="photos">Photos</string>
-    <string name="separator">\u2022\</string>
+    <string name="favorite">Favorite</string>
 
     <plurals name="price_cheap">
         <item quantity="one">$\u0020\u2022\u0020</item>
