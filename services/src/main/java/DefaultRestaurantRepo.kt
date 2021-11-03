@@ -2,10 +2,11 @@ package com.dthompson.services
 
 import com.dthompson.api.RestaurantApi
 import com.dthompson.core.Restaurant
+import com.dthompson.services.storage.LocalStorage
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class DefaultRestaurantRepo(private val restaurantApi: RestaurantApi): RestaurantRepo {
+class DefaultRestaurantRepo(private val restaurantApi: RestaurantApi, private val localStorage: LocalStorage): RestaurantRepo {
     var restaurantMap: MutableMap<String, Restaurant> = HashMap()
 
     override fun getRestaurants(query: String?, locationString: String): Single<List<Restaurant>> {
@@ -22,6 +23,18 @@ class DefaultRestaurantRepo(private val restaurantApi: RestaurantApi): Restauran
                 }
                 list
             }
+    }
+
+    override fun addFavorite(placeId: String) {
+        localStorage.addFavoriteId(placeId)
+    }
+
+    override fun removeFavorite(placeId: String) {
+        localStorage.removeFavoriteId(placeId)
+    }
+
+    override fun getFavorites(): Set<String> {
+        return localStorage.getFavorites()
     }
 
     private fun getPhoneAndPhotos(placeId: String): Single<Restaurant> {
