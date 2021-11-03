@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.viewpager2.widget.ViewPager2
 import com.dthompson.core.Restaurant
-import com.dthompson.core.StringUtils
 import com.dthompson.restaurantfinder.R
+import com.dthompson.restaurantfinder.util.StringUtil
 
 /**
  * Dialog fragment used to display a more detailed view of restaurant details.
@@ -60,7 +60,7 @@ class RestaurantDetailDialogFragment(private val restaurant: Restaurant): AppCom
             textViewPrice = view.findViewById(R.id.text_view_price)
             val price = restaurant.priceLevel
             val pluralsRes = if (price <= 2) R.plurals.price_cheap else R.plurals.price_expensive
-            textViewPrice.text = StringUtils.getPriceString(restaurant.priceLevel, pluralsRes, view.context)
+            textViewPrice.text = StringUtil.getPriceString(restaurant.priceLevel, pluralsRes, view.context)
 
             textViewHours = view.findViewById(R.id.text_view_hours)
             if (restaurant.isOpen) {

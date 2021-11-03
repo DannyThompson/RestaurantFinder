@@ -12,8 +12,8 @@ import coil.load
 import com.dthompson.core.GOOGLE_PLACES_API_KEY
 import com.dthompson.core.PHOTOS_URL
 import com.dthompson.core.Restaurant
-import com.dthompson.core.StringUtils
 import com.dthompson.restaurantfinder.R
+import com.dthompson.restaurantfinder.util.StringUtil
 
 /**
  * Basic RecyclerView adapter that manages the list of restaurants.
@@ -94,7 +94,7 @@ class RestaurantListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             restaurantName.text = restaurant.name
             val price = restaurant.priceLevel
             val pluralsRes = if (price <= 2) R.plurals.price_cheap else R.plurals.price_expensive
-            restaurantPrice.text = StringUtils.getPriceString(restaurant.priceLevel, pluralsRes, itemView.context)
+            restaurantPrice.text = StringUtil.getPriceString(restaurant.priceLevel, pluralsRes, itemView.context)
 
             ratingCount.text = String.format(this.itemView.context.getString(R.string.restaurant_total_ratings),
                 restaurant.ratingCount)

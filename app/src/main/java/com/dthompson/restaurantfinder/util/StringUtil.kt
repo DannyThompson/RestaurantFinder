@@ -1,9 +1,9 @@
-package com.dthompson.core
+package com.dthompson.restaurantfinder.util
 
 import android.content.Context
 import androidx.annotation.PluralsRes
 
-class StringUtils {
+class StringUtil {
     companion object {
         fun getPriceString(price: Int, @PluralsRes resId: Int, context: Context): String {
             return if (price <= 2) {
