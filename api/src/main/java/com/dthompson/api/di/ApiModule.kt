@@ -23,7 +23,7 @@ class ApiModule {
         val loggingInterceptor = ColorfulHttpLoggingInterceptor()
         loggingInterceptor.setLevel(ColorfulHttpLoggingInterceptor.Level.BASIC)
         builder.addInterceptor(loggingInterceptor)
-        return OkHttpClient.Builder().build()
+        return builder.build()
     }
 
     @Provides
