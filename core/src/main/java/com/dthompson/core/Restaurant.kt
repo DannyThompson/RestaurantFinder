@@ -12,4 +12,5 @@ class Restaurant(
 
         var phone: String? = null
         var photoReferences: List<String>? = null
+        var isFavorite = false
 }
