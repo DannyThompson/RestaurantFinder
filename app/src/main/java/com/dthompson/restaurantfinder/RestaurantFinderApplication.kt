@@ -4,6 +4,7 @@ import android.app.Application
 import com.dthompson.restaurantfinder.di.AppComponent
 import com.dthompson.restaurantfinder.di.AppModule
 import com.dthompson.restaurantfinder.di.DaggerAppComponent
+import com.dthompson.services.com.dthompson.services.di.ServiceComponentHolder
 import com.dthompson.services.di.DaggerServiceComponent
 
 class RestaurantFinderApplication: Application() {
@@ -14,9 +15,10 @@ class RestaurantFinderApplication: Application() {
     }
 
     private fun setupDagger() {
+        ServiceComponentHolder.create(this)
         appComponent = DaggerAppComponent.builder()
             .appModule(AppModule(this))
-            .serviceComponent(DaggerServiceComponent.builder().build())
+            .serviceComponent(ServiceComponentHolder.getServiceComponent())
             .build()
     }
 }
