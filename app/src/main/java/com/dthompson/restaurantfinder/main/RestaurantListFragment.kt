@@ -14,6 +14,9 @@ import com.dthompson.core.Restaurant
 import com.dthompson.restaurantfinder.R
 import com.dthompson.restaurantfinder.main.details.RestaurantDetailDialogFragment
 
+/**
+ * Fragment that handles the presentation of the current list of restaurants
+ */
 const val TAG_DETAIL_DIALOG_FRAGMENT = "TAG_DETAIL_DIALOG_FRAGMENT"
 class RestaurantListFragment: Fragment(), RestaurantListAdapter.OnItemClickListener {
 

@@ -1,5 +1,6 @@
 package com.dthompson.core
 
+// Model representing a Restaurant object.
 class Restaurant(
         var name: String,
         var id: String,

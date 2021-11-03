@@ -5,7 +5,6 @@ import com.dthompson.restaurantfinder.di.AppComponent
 import com.dthompson.restaurantfinder.di.AppModule
 import com.dthompson.restaurantfinder.di.DaggerAppComponent
 import com.dthompson.services.com.dthompson.services.di.ServiceComponentHolder
-import com.dthompson.services.di.DaggerServiceComponent
 
 class RestaurantFinderApplication: Application() {
     var appComponent: AppComponent? = null

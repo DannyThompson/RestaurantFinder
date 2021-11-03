@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -84,6 +83,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
         })
 
+        // Check location permissions on each start-up.
         checkLocationPermission()
     }
 

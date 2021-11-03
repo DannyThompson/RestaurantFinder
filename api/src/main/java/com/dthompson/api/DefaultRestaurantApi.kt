@@ -4,6 +4,9 @@ import com.dthompson.core.*
 import io.reactivex.Single
 import java.lang.RuntimeException
 
+/**
+ * Implementation of Restaurant API that uses the API service to communicate with the server.
+ */
 class DefaultRestaurantApi(private val apiService: RestaurantApiService): RestaurantApi {
     override fun getRestaurantsForQuery(queryParam: String?, locationString: String): Single<List<Restaurant>> {
         return apiService.getRestaurantDetails(
@@ -21,7 +24,7 @@ class DefaultRestaurantApi(private val apiService: RestaurantApiService): Restau
 
                     list
                 } else {
-                    throw RuntimeException("Error 2")
+                    throw RuntimeException("Error getting restaurant list")
                 }
             }
     }

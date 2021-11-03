@@ -6,6 +6,9 @@ import com.dthompson.services.storage.LocalStorage
 import io.reactivex.Observable
 import io.reactivex.Single
 
+/**
+ * Implementation of RestaurantRepo that handles communications with the API layer.
+ */
 class DefaultRestaurantRepo(private val restaurantApi: RestaurantApi, private val localStorage: LocalStorage): RestaurantRepo {
     var restaurantMap: MutableMap<String, Restaurant> = HashMap()
 

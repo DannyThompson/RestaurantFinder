@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 
+/**
+ * Implementation of LocalStorage, relying on SharedPreferences to store and remove references to a user's favorited restaurants.
+ */
 private const val PREF_FAVORITED_IDS = "PREF_FAVORITED_IDS"
 class DefaultLocalStorage(context: Context): LocalStorage {
     private val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)

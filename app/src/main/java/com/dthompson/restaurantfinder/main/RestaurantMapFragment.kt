@@ -17,6 +17,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 
+/**
+ * Fragment the contains a GoogleMap to show location of all the currently queried restaurants.
+ */
 class RestaurantMapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMapLoadedCallback {
 
     private val viewModel: MainActivityViewModel by activityViewModels()

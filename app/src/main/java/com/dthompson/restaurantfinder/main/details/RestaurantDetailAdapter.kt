@@ -10,6 +10,9 @@ import com.dthompson.core.GOOGLE_PLACES_API_KEY
 import com.dthompson.core.PHOTOS_URL
 import com.dthompson.restaurantfinder.R
 
+/**
+ * Simple adapter for our ViewPager to show a restaurant's photos.
+ */
 class RestaurantDetailAdapter(private val photoUrls: List<String>): RecyclerView.Adapter<RestaurantDetailAdapter.PhotoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {

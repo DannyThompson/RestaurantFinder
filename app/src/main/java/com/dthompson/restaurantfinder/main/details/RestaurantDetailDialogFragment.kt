@@ -12,6 +12,10 @@ import com.dthompson.core.Restaurant
 import com.dthompson.core.StringUtils
 import com.dthompson.restaurantfinder.R
 
+/**
+ * Dialog fragment used to display a more detailed view of restaurant details.
+ * Utilizes ViewPager2 to allow the user to swipe through a set of images, if available.
+ */
 class RestaurantDetailDialogFragment(private val restaurant: Restaurant): AppCompatDialogFragment() {
 
     private lateinit var viewPager: ViewPager2

@@ -19,9 +19,13 @@ import io.reactivex.exceptions.Exceptions
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+/**
+ * ViewModel for MainActivity that handles all communication with the service/repo-layer.
+ */
 class MainActivityViewModel: ViewModel() {
     @Inject
     lateinit var restaurantRepo: RestaurantRepo
+
     @Inject
     lateinit var context: Context
 
@@ -71,7 +75,7 @@ class MainActivityViewModel: ViewModel() {
         restaurantRepo.removeFavorite(placeId)
     }
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission") // Suppress because if we got this far, we already checked location permission elsewhere.
     fun getLocation() {
         val locationRequest = LocationRequest()
         locationRequest.interval = 10000

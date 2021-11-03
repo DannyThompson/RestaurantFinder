@@ -4,6 +4,10 @@ import com.dthompson.core.Location
 import com.dthompson.core.Restaurant
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Response body of a singular restaurant returned from RestaurantListResponseBody,
+ * containing basic information about the restaurant.
+ */
 class RestaurantResultResponseBody {
 
     @SerializedName("name")
