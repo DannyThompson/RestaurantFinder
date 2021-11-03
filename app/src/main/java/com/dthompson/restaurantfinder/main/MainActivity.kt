@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -45,12 +46,12 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         toggleButton = findViewById(R.id.button_list_map_toggle)
         toggleButton.setOnClickListener {
             if (viewFlipper.displayedChild == FRAGMENT_INDEX_LIST) {
-                toggleButton.icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_location_marker, null)
-                toggleButton.text = resources.getText(R.string.map)
-                viewFlipper.displayedChild = FRAGMENT_INDEX_MAP
-            } else {
                 toggleButton.icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_list, null)
                 toggleButton.text = resources.getText(R.string.list)
+                viewFlipper.displayedChild = FRAGMENT_INDEX_MAP
+            } else {
+                toggleButton.icon = ResourcesCompat.getDrawable(resources, R.drawable.ic_location_marker, null)
+                toggleButton.text = resources.getText(R.string.map)
                 viewFlipper.displayedChild = FRAGMENT_INDEX_LIST
             }
         }

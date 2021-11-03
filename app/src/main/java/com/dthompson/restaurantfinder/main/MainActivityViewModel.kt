@@ -59,6 +59,18 @@ class MainActivityViewModel: ViewModel() {
             )
     }
 
+    fun getFavorites(): Set<String> {
+        return restaurantRepo.getFavorites()
+    }
+
+    fun addFavorite(placeId: String) {
+        restaurantRepo.addFavorite(placeId)
+    }
+
+    fun removeFavorite(placeId: String) {
+        restaurantRepo.removeFavorite(placeId)
+    }
+
     @SuppressLint("MissingPermission")
     fun getLocation() {
         val locationRequest = LocationRequest()

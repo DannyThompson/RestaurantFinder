@@ -52,8 +52,18 @@ class RestaurantListFragment: Fragment(), RestaurantListAdapter.OnItemClickListe
         }
     }
 
+    override fun onFavoriteClicked(placeId: String, favorited: Boolean) {
+        if (favorited) {
+            viewModel.addFavorite(placeId)
+        } else {
+            viewModel.removeFavorite(placeId)
+        }
+    }
+
     private fun observeRestaurants() {
         viewModel.restaurants.observe(viewLifecycleOwner, {
+            adapter.setFavorites(viewModel.getFavorites())
+
             if (it.queryType == QUERY_TYPE_ALL) {
                 adapter.setRestaurantList(it.allLocalRestaurants)
             } else {
