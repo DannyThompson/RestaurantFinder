@@ -39,3 +39,13 @@ This app uses an MVVM design pattern utilizing LiveData. The project is separate
 3) OkHttp for Http client
 4) RxJava for reactive/asynchronous programming
 5) RxPermissions for permission checking built on top of RxJava.
+
+# Screenshots
+![image](https://user-images.githubusercontent.com/11155788/145342697-a7f89bcf-41bf-429e-a367-a29ccea2982c.png)
+
+![image](https://user-images.githubusercontent.com/11155788/145342702-b0d6f7f4-6b7e-482e-84b0-fe22f25516de.png)
+
+![image](https://user-images.githubusercontent.com/11155788/145342706-a1ec4ac8-bad1-49f5-9fb9-3c7a80f2dfee.png)
+
+![image](https://user-images.githubusercontent.com/11155788/145342711-52a13cca-5e13-446f-88e8-33a011b54a65.png)
+
