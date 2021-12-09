@@ -1,6 +1,14 @@
 # Restaurant Finder App
 by Daniel Thompson
 
+# Initial Setup
+This app relies on Google Places, and thus needs a Google Places API key to access the Places and Maps APIs.
+The API key is located within the .gitignored local.properties file, so if you wish to run this app, you will need to go
+to your local.properties file, and add `GOOGLE_PLACES_API_KEY="<your_api_key_here>"`.
+Once you rebuild the project, you should be able to compile and run it with no further issues.
+
+You can get a free Places API key via the Google Developer console, and linking a billing account to your free created project.
+
 # Description
 Upon startup, this app will ask the user for location permissions.
 
