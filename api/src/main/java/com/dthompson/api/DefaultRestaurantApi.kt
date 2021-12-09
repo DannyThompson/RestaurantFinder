@@ -1,6 +1,9 @@
 package com.dthompson.api
 
-import com.dthompson.core.*
+import com.dthompson.core.DETAILS_PHONE_AND_PHOTOS
+import com.dthompson.core.PhoneAndPhotosDto
+import com.dthompson.core.REQUESTED_TYPE
+import com.dthompson.core.Restaurant
 import io.reactivex.Single
 import java.lang.RuntimeException
 
@@ -13,7 +16,7 @@ class DefaultRestaurantApi(private val apiService: RestaurantApiService): Restau
                 queryParam,
                 locationString,
                 REQUESTED_TYPE,
-                GOOGLE_PLACES_API_KEY
+                BuildConfig.GOOGLE_PLACES_API_KEY
         )
             .map {
                 if (it.isSuccessful) {
@@ -30,7 +33,7 @@ class DefaultRestaurantApi(private val apiService: RestaurantApiService): Restau
     }
 
     override fun getPhoneAndPhotos(placeId: String): Single<PhoneAndPhotosDto> {
-        return apiService.getRestaurantSpecialDetails(placeId, DETAILS_PHONE_AND_PHOTOS, GOOGLE_PLACES_API_KEY)
+        return apiService.getRestaurantSpecialDetails(placeId, DETAILS_PHONE_AND_PHOTOS, BuildConfig.GOOGLE_PLACES_API_KEY)
             .map {
                 if (it.isSuccessful) {
                     val details = it.body()!!.details

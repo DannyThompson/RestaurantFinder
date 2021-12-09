@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.dthompson.core.GOOGLE_PLACES_API_KEY
 import com.dthompson.core.PHOTOS_URL
+import com.dthompson.restaurantfinder.BuildConfig
 import com.dthompson.restaurantfinder.R
 
 /**
@@ -22,7 +22,7 @@ class RestaurantDetailAdapter(private val photoUrls: List<String>): RecyclerView
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val photoUrl = PHOTOS_URL.replace("{reference}", photoUrls[position])
-            .replace("{key}", GOOGLE_PLACES_API_KEY)
+            .replace("{key}", BuildConfig.GOOGLE_PLACES_API_KEY)
         holder.imageView.load(photoUrl)
     }
 

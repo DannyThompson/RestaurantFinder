@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.dthompson.core.GOOGLE_PLACES_API_KEY
 import com.dthompson.core.PHOTOS_URL
 import com.dthompson.core.Restaurant
+import com.dthompson.restaurantfinder.BuildConfig
 import com.dthompson.restaurantfinder.R
 import com.dthompson.restaurantfinder.util.StringUtil
 
@@ -111,7 +111,7 @@ class RestaurantListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val firstPhotoReference: String? = restaurant.photoReferences?.firstOrNull()
             firstPhotoReference ?: return
             val photoUrl = PHOTOS_URL.replace("{reference}", firstPhotoReference)
-                .replace("{key}", GOOGLE_PLACES_API_KEY)
+                .replace("{key}", BuildConfig.GOOGLE_PLACES_API_KEY)
             imageViewThumbnail.load(photoUrl) {
                 error(R.drawable.thumbnail_placeholder)
                 placeholder(R.drawable.thumbnail_placeholder)

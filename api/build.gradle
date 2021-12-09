@@ -4,11 +4,17 @@ plugins {
     id 'kotlin-kapt'
 }
 
+def localPropertiesFile = rootProject.file("local.properties")
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(localPropertiesFile))
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
+        buildConfigField "String", "GOOGLE_PLACES_API_KEY", localProperties['GOOGLE_PLACES_API_KEY']
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

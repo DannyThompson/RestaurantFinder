@@ -110,7 +110,7 @@ class RestaurantMapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMapLoad
     }
 
     private fun observeLoadingState() {
-        viewModel.loading.observe(this, { isLoading ->
+        viewModel.loading.observe(viewLifecycleOwner, { isLoading ->
             if (isLoading) map?.clear()
         })
     }
